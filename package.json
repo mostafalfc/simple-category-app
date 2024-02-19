@@ -11,6 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/jwt": "^8.0.0",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
     "@prisma/client": "^5.9.1",
     "ajv": "^8.12.0",
     "ajv-formats": "^2.1.1",

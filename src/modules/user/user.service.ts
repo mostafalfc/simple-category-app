@@ -9,7 +9,7 @@ import { LoginResponseDto } from './dtos/responses/login.response.dto';
 
 export class UserService {
   hash = new Hash();
-  async createUser(input: CreateUserDto): Promise<User> {
+  async create(input: CreateUserDto): Promise<User> {
     const { password, ...rest } = input;
     const { salt, hash } = await this.hash.hashPassword(password);
     const user = await prisma.user.create({
@@ -18,17 +18,30 @@ export class UserService {
     return user;
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
-    return await prisma.user.findUnique({
+  async findUserByEmail(email: string): Promise<User> {
+    const user = await prisma.user.findUnique({
       where: { email },
+      select: {
+        name: true,
+        email: true,
+        password: true,
+        salt: true,
+        id: true,
+        categories: {
+          select: {
+            category: true,
+          },
+        },
+      },
     });
+    if (!user) {
+      throw new Error(ErrorMessages.USER_NOT_FOUND);
+    }
+    return user;
   }
 
   async login(input: LoginRequestDto): Promise<LoginResponseDto> {
     const user = await this.findUserByEmail(input.email);
-    if (!user) {
-      throw new Error(ErrorMessages.INVALID_LOGIN);
-    }
 
     const is_password_correct = await this.hash.verifyPassword({
       user_password: input.password,

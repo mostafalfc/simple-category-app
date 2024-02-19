@@ -10,7 +10,7 @@ export class UserController {
     reply: FastifyReply,
   ) {
     try {
-      const user = await new UserService().createUser(request.body);
+      const user = await new UserService().create(request.body);
       reply.code(201).send({ id: user.id });
     } catch (error) {
       console.log(error);
