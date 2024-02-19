@@ -27,6 +27,6 @@ model Category {
   longitude  Int?     @default(dbgenerated("null"))
   category   String   @db.VarChar(255)
   counter    Int?     @default(dbgenerated("null"))
-  User       User?    @relation(fields: [userId], references: [id])
-  userId     Int?
+  user       User?    @relation(fields: [user_id], references: [id])
+  user_id    Int?
 }

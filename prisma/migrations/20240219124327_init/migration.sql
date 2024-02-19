@@ -19,10 +19,10 @@ CREATE TABLE `Category` (
     `longitude` INTEGER NULL DEFAULT null,
     `category` VARCHAR(255) NOT NULL,
     `counter` INTEGER NULL DEFAULT null,
-    `userId` INTEGER NULL,
+    `user_id` INTEGER NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Category` ADD CONSTRAINT `Category_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `Category` ADD CONSTRAINT `Category_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

@@ -6,5 +6,6 @@ export default () => ({
   jwt_secret: process.env.JWT_SECRET ?? 'default_secret',
   routes: {
     user_route: '/api/user',
+    category_route: '/api/category',
   },
 });

@@ -5,6 +5,11 @@ import fastify, {
   FastifyRequest,
 } from 'fastify';
 import configurations from './configs/configurations';
+import CategoryRoutes from './modules/category/category.route';
+import {
+  ChangeCategoryCounterSchema,
+  CreateCategorySchema,
+} from './modules/category/category.schema';
 import UserRoutes from './modules/user/user.route';
 import { CreateUserSchema, LoginSchema } from './modules/user/user.schema';
 
@@ -24,11 +29,19 @@ function registerRoutes(app: FastifyInstance) {
   app.register(UserRoutes, {
     prefix: configurations().routes.user_route,
   });
+  app.register(CategoryRoutes, {
+    prefix: configurations().routes.category_route,
+  });
 }
 
 function addSchemas(app: FastifyInstance) {
   app.addSchema({ schema: CreateUserSchema, $id: 'CreateUserSchema' });
   app.addSchema({ schema: LoginSchema, $id: 'LoginSchema' });
+  app.addSchema({ schema: CreateCategorySchema, $id: 'CreateCategorySchema' });
+  app.addSchema({
+    schema: ChangeCategoryCounterSchema,
+    $id: 'ChangeCategoryCounterSchema',
+  });
 }
 
 function registerJwt(app: FastifyInstance) {
@@ -55,7 +68,7 @@ async function main() {
       port: +port,
       host: host,
     });
-    console.log(`Server started at http://${host}:${port}`);
+    console.log(`Server started at http://${host}:${port}/docs`);
   } catch (error) {
     console.error(error);
     process.exit(1);
