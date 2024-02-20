@@ -12,7 +12,17 @@ async function UserRoutes(app: FastifyInstance) {
     controller.createUserHandler,
   );
   app.post('/login', { schema: LoginSchema }, controller.loginHandler);
-  app.get('/', { preHandler: app.auth }, controller.getUserHandler);
+  app.get(
+    '/',
+    {
+      preHandler: app.auth,
+      schema: {
+        tags: ['user'],
+        security: [{ ApiToken: [] }],
+      },
+    },
+    controller.getUserHandler,
+  );
 }
 
 export default UserRoutes;

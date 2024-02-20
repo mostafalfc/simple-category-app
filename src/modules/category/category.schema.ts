@@ -1,5 +1,7 @@
 import { FastifySchema } from 'fastify';
 export const CreateCategorySchema: FastifySchema = {
+  tags: ['category'],
+  security: [{ ApiToken: [] }],
   body: {
     type: 'object',
     properties: {
@@ -22,6 +24,8 @@ export const CreateCategorySchema: FastifySchema = {
 };
 
 export const ChangeCategoryCounterSchema: FastifySchema = {
+  tags: ['category'],
+  security: [{ ApiToken: [] }],
   body: {
     type: 'object',
     properties: {

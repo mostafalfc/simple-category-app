@@ -1,5 +1,6 @@
 import { FastifySchema } from 'fastify';
 export const CreateUserSchema: FastifySchema = {
+  tags: ['user'],
   body: {
     type: 'object',
     properties: {
@@ -21,6 +22,7 @@ export const CreateUserSchema: FastifySchema = {
 };
 
 export const LoginSchema: FastifySchema = {
+  tags: ['user'],
   body: {
     type: 'object',
     properties: {

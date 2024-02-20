@@ -1,4 +1,6 @@
 import fastifyJwt from '@fastify/jwt';
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastify, {
   FastifyInstance,
   FastifyReply,
@@ -55,10 +57,48 @@ function registerJwt(app: FastifyInstance) {
   });
 }
 
+function registerSwagger(app: FastifyInstance) {
+  app.register(fastifySwagger, {
+    swagger: {
+      info: {
+        title: 'Categories',
+        description: 'Categories app swagger API',
+        version: '0.1.0',
+      },
+
+      tags: [
+        { name: 'user', description: 'User related end-points' },
+        { name: 'category', description: 'Category related end-points' },
+      ],
+      securityDefinitions: {
+        ApiToken: {
+          type: 'apiKey',
+          name: 'authorization',
+          in: 'header',
+        },
+      },
+    },
+  });
+  app.register(fastifySwaggerUi, {
+    routePrefix: '/docs',
+    uiConfig: {
+      docExpansion: 'full',
+      deepLinking: false,
+    },
+    staticCSP: true,
+    transformStaticCSP: (header) => header,
+    transformSpecification: (swaggerObject, request, reply) => {
+      return swaggerObject;
+    },
+    transformSpecificationClone: true,
+  });
+}
 async function main() {
   try {
     const port = configurations().port;
     const host = configurations().host;
+
+    registerSwagger(app);
 
     registerJwt(app);
     registerRoutes(app);

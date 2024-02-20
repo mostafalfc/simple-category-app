@@ -54,6 +54,6 @@ export class UserService {
     }
 
     const { password, salt, ...rest } = user;
-    return { token: app.jwt.sign(rest) };
+    return { token: `Bearer ${app.jwt.sign(rest)}` };
   }
 }

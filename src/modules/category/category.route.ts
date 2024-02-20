@@ -13,9 +13,29 @@ async function CategoryRoutes(app: FastifyInstance) {
     controller.createCategoryHandler,
   );
 
-  app.get('/', { preHandler: app.auth }, controller.getCategoriesHandler);
+  app.get(
+    '/',
+    {
+      preHandler: app.auth,
+      schema: {
+        security: [{ ApiToken: [] }],
+        tags: ['category'],
+      },
+    },
+    controller.getCategoriesHandler,
+  );
 
-  app.get('/:id', { preHandler: app.auth }, controller.getCategoryByIdHandler);
+  app.get(
+    '/:id',
+    {
+      preHandler: app.auth,
+      schema: {
+        security: [{ ApiToken: [] }],
+        tags: ['category'],
+      },
+    },
+    controller.getCategoryByIdHandler,
+  );
 
   app.post(
     '/counter',
