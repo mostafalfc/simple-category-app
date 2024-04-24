@@ -1,19 +1,16 @@
 import fastifyJwt from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
-import fastify, {
-  FastifyInstance,
-  FastifyReply,
-  FastifyRequest,
-} from 'fastify';
+import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import configurations from './configs/configurations';
-import CategoryRoutes from './modules/category/category.route';
-import {
-  ChangeCategoryCounterSchema,
-  CreateCategorySchema,
-} from './modules/category/category.schema';
-import UserRoutes from './modules/user/user.route';
-import { CreateUserSchema, LoginSchema } from './modules/user/user.schema';
+import CategoryRoutes from './modules/category/application/routes/category.route';
+import { ChangeCategoryCounterValidationSchema } from './modules/category/application/validations/change-category-counter-validation.schema';
+import UserRoutes from './modules/user/application/routes/user.route';
+import { LoginValidationSchema } from './modules/user/application/validations/login-validation.schema';
+import { CreateCategoryValidationSchema } from './modules/category/application/validations/create-category-validation.schema';
+import { CreateUserValidationSchema } from './modules/user/application/validations/create-user-validation.schema';
+import { GlobalErrorResponse } from './global/responses/global-error';
+import { GlobalSuccessResponse } from './global/responses/global-response';
 
 export const app: FastifyInstance = fastify();
 
@@ -22,6 +19,10 @@ declare module 'fastify' {
     auth: any;
   }
 }
+// Register parent error handler
+app.setErrorHandler((error, request, reply) => {
+  GlobalErrorResponse(reply, error.message);
+});
 
 app.get('/', () => {
   return { status: 'OK' };
@@ -37,12 +38,15 @@ function registerRoutes(app: FastifyInstance) {
 }
 
 function addSchemas(app: FastifyInstance) {
-  app.addSchema({ schema: CreateUserSchema, $id: 'CreateUserSchema' });
-  app.addSchema({ schema: LoginSchema, $id: 'LoginSchema' });
-  app.addSchema({ schema: CreateCategorySchema, $id: 'CreateCategorySchema' });
+  app.addSchema({ schema: CreateUserValidationSchema, $id: 'CreateUserValidationSchema' });
+  app.addSchema({ schema: LoginValidationSchema, $id: 'LoginValidationSchema' });
   app.addSchema({
-    schema: ChangeCategoryCounterSchema,
-    $id: 'ChangeCategoryCounterSchema',
+    schema: CreateCategoryValidationSchema,
+    $id: 'CreateCategoryValidationSchema',
+  });
+  app.addSchema({
+    schema: ChangeCategoryCounterValidationSchema,
+    $id: 'ChangeCategoryCounterValidationSchema',
   });
 }
 

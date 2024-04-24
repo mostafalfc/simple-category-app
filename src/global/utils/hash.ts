@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import * as crypto from "crypto";
 import { HashResponseInterface } from "../interfaces/hash-response.interface";
 import { verifyPasswordRequestInterface } from "../interfaces/verify-password-request.interface";
 

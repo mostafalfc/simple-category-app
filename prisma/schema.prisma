@@ -3,20 +3,12 @@
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
-}
-
-model User {
-  id         Int        @id @default(autoincrement())
-  email      String     @unique
-  name       String?
-  password   String
-  salt       String
-  categories Category[]
 }
 
 model Category {
@@ -29,4 +21,14 @@ model Category {
   counter    Int?     @default(dbgenerated("null"))
   user       User?    @relation(fields: [user_id], references: [id])
   user_id    Int?
+}
+
+
+model User {
+  id         Int        @id @default(autoincrement())
+  email      String     @unique
+  name       String?
+  password   String
+  salt       String
+  categories Category[]
 }

@@ -1,15 +1,13 @@
 import { FastifyInstance } from 'fastify';
-import { CategoryController } from './category.controller';
-import {
-  ChangeCategoryCounterSchema,
-  CreateCategorySchema,
-} from './category.schema';
+import { CategoryController } from '../controllers/category.controller';
+import { ChangeCategoryCounterValidationSchema } from '../validations/change-category-counter-validation.schema';
+import { CreateCategoryValidationSchema } from '../validations/create-category-validation.schema';
 
 const controller = new CategoryController();
 async function CategoryRoutes(app: FastifyInstance) {
   app.post(
     '/',
-    { schema: CreateCategorySchema, preHandler: app.auth },
+    { schema: CreateCategoryValidationSchema, preHandler: app.auth },
     controller.createCategoryHandler,
   );
 
@@ -39,7 +37,7 @@ async function CategoryRoutes(app: FastifyInstance) {
 
   app.post(
     '/counter',
-    { schema: ChangeCategoryCounterSchema, preHandler: app.auth },
+    { schema: ChangeCategoryCounterValidationSchema, preHandler: app.auth },
     controller.changeCategoryCounter,
   );
 }

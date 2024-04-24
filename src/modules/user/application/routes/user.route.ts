@@ -1,17 +1,18 @@
 import { FastifyInstance } from 'fastify';
-import { UserController } from './user.controller';
-import { CreateUserSchema, LoginSchema } from './user.schema';
+import { UserController } from '../controllers/user.controller';
+import { LoginValidationSchema } from '../validations/login-validation.schema';
+import { CreateUserValidationSchema } from '../validations/create-user-validation.schema';
 
 const controller = new UserController();
 async function UserRoutes(app: FastifyInstance) {
   app.post(
     '/',
     {
-      schema: CreateUserSchema,
+      schema: CreateUserValidationSchema,
     },
     controller.createUserHandler,
   );
-  app.post('/login', { schema: LoginSchema }, controller.loginHandler);
+  app.post('/login', { schema: LoginValidationSchema }, controller.loginHandler);
   app.get(
     '/',
     {
