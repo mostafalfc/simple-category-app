@@ -15,6 +15,9 @@ A simple api developed in **DomainDrivenDesign** and **Clean** Architecture usin
 
 ## Installation
       npm install
+### Dockerized
+#### Also project is dockerized and can use the following command to run in container\
+    docker-compose up
 
 ## Running
       npm run dev

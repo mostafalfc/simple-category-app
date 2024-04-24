@@ -18,7 +18,7 @@ declare module 'fastify' {
     auth: any;
   }
 }
-// Register parent error handler
+// register global error handler
 app.setErrorHandler((error, request, reply) => {
   GlobalErrorResponse(reply, error.message);
 });
@@ -27,6 +27,7 @@ app.get('/', () => {
   return { status: 'OK' };
 });
 
+// register routes
 function registerRoutes(app: FastifyInstance) {
   app.register(UserRoutes, {
     prefix: configurations().routes.user_route,
@@ -36,6 +37,7 @@ function registerRoutes(app: FastifyInstance) {
   });
 }
 
+// register validations schema
 function addSchemas(app: FastifyInstance) {
   app.addSchema({ schema: CreateUserValidationSchema, $id: 'CreateUserValidationSchema' });
   app.addSchema({ schema: LoginValidationSchema, $id: 'LoginValidationSchema' });
@@ -49,6 +51,7 @@ function addSchemas(app: FastifyInstance) {
   });
 }
 
+// register authorization
 function registerJwt(app: FastifyInstance) {
   app.register(fastifyJwt, { secret: configurations().jwt_secret });
   app.decorate('auth', async (request: FastifyRequest, reply: FastifyReply) => {
@@ -60,6 +63,7 @@ function registerJwt(app: FastifyInstance) {
   });
 }
 
+// register swagger
 function registerSwagger(app: FastifyInstance) {
   app.register(fastifySwagger, {
     swagger: {
@@ -96,26 +100,11 @@ function registerSwagger(app: FastifyInstance) {
     transformSpecificationClone: true,
   });
 }
-async function main() {
-  try {
-    const port = configurations().port;
-    const host = configurations().host;
+export function main() {
+  registerSwagger(app);
 
-    registerSwagger(app);
-
-    registerJwt(app);
-    registerRoutes(app);
-    addSchemas(app);
-
-    await app.listen({
-      port: +port,
-      host: host,
-    });
-    console.log(`Server started at http://${host}:${port}/docs`);
-  } catch (error) {
-    console.error(error);
-    process.exit(1);
-  }
+  registerJwt(app);
+  registerRoutes(app);
+  addSchemas(app);
+  return app;
 }
-
-main();

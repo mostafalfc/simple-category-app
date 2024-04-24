@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/app.ts",
-    "test": "cross-env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha -r ts-node/register 'test/**/*.test.ts'",
-    "test2": "mocha --loader=ts-node/esm --require ts-node/register 'test/**/*.test.ts'"
+    "dev": "nodemon src/server.ts",
+    "test": "tap --reporter=base "
   },
   "keywords": [],
   "author": "",
@@ -23,7 +22,8 @@
     "fastify": "^4.26.1",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
-    "source-map-support": "^0.5.21"
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.11",
@@ -35,6 +35,7 @@
     "mocha": "^10.3.0",
     "nyc": "^15.1.0",
     "prisma": "^5.13.0",
+    "tap": "^18.7.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   }
