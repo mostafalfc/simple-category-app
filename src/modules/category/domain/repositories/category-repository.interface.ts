@@ -1,5 +1,4 @@
 import { CreateCategoryRequestDto } from '../../application/dtos/requests/create-category.request.dto';
-import { Category } from '@prisma/client';
 import { CategoryInterface } from '../interfaces/category.interface';
 import { ChangeCategoryCounterRequestDto } from '../../application/dtos/requests/change-category-counter.request.dto';
 

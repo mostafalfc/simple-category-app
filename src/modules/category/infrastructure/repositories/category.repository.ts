@@ -1,7 +1,6 @@
 import { Category } from '@prisma/client';
 import { CreateCategoryRequestDto } from '../../application/dtos/requests/create-category.request.dto';
 import prisma from '../../../../global/utils/prisma';
-import { ErrorMessages } from '../../../../global/enums/error-messages.enum';
 import { ChangeCategoryCounterRequestDto } from '../../application/dtos/requests/change-category-counter.request.dto';
 import { CategoryRepositoryInterface } from '../../domain/repositories/category-repository.interface';
 

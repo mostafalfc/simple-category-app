@@ -1,4 +1,3 @@
-import { HttpCodes } from 'fastify/types/utils';
 import { FastifyReply } from 'fastify';
 
 export interface GlobalErrorInterface {

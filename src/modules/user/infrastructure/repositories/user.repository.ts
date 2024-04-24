@@ -1,10 +1,5 @@
 import { User } from '@prisma/client';
-import { app } from '../../../../app';
-import { ErrorMessages } from '../../../../global/enums/error-messages.enum';
-import { Hash } from '../../../../global/utils/hash';
 import prisma from '../../../../global/utils/prisma';
-import { CreateUserDto } from '../../application/dtos/requests/create-user.request.dto';
-import { LoginRequestDto } from '../../application/dtos/requests/login.request.dto';
 import { UserRepositoryInterface } from '../../domain/repositories/user-repository.interface';
 import { CreateUserInterface } from '../../domain/interface/create-user.interface';
 

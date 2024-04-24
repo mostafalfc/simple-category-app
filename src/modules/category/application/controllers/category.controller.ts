@@ -1,12 +1,11 @@
-import { User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { UserService } from '../../../user/application/services/user.service';
 import { CategoryService } from '../services/category.service';
 import { ChangeCategoryCounterRequestDto } from '../dtos/requests/change-category-counter.request.dto';
 import { CreateCategoryRequestDto } from '../dtos/requests/create-category.request.dto';
 import { GlobalSuccessResponse } from '../../../../global/responses/global-response';
-import { GlobalErrorResponse } from '../../../../global/responses/global-error';
 import { CategorySerializer } from '../serializers/category.serializer';
+import { User } from '../../../user/domain/models/user.model';
 
 export class CategoryController {
   async createCategoryHandler(

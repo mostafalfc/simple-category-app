@@ -1,9 +1,8 @@
-import { User } from '@prisma/client';
-import { UserInterface } from '../../domain/interface/user.interface';
 import { CategorySerializer } from '../../../category/application/serializers/category.serializer';
+import { User } from '../../domain/models/user.model';
 
 export class UserSerializer {
-  constructor(entity: Partial<UserInterface>) {
+  constructor(entity: Partial<User>) {
     this.id = entity.id;
     this.email = entity.email;
     this.name = entity.name;

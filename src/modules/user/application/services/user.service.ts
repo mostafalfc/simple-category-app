@@ -1,25 +1,23 @@
-import { User } from '@prisma/client';
 import { app } from '../../../../app';
 import { ErrorMessages } from '../../../../global/enums/error-messages.enum';
 import { Hash } from '../../../../global/utils/hash';
-import prisma from '../../../../global/utils/prisma';
 import { CreateUserDto } from '../dtos/requests/create-user.request.dto';
 import { LoginRequestDto } from '../dtos/requests/login.request.dto';
 import { LoginResponseDto } from '../dtos/responses/login.response.dto';
 import { UserRepositoryInterface } from '../../domain/repositories/user-repository.interface';
 import { UserRepository } from '../../infrastructure/repositories/user.repository';
-import { UserInterface } from '../../domain/interface/user.interface';
+import { User } from '../../domain/models/user.model';
 
 export class UserService {
   hash = new Hash();
   userRepository: UserRepositoryInterface = new UserRepository();
-  async create(input: CreateUserDto): Promise<UserInterface> {
+  async create(input: CreateUserDto): Promise<User> {
     const { password, ...rest } = input;
     const { salt, hash } = await this.hash.hashPassword(password);
     return await this.userRepository.create({ salt, password: hash, ...rest });
   }
 
-  async findUserByEmail(email: string): Promise<UserInterface> {
+  async findUserByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) {
       throw new Error(ErrorMessages.USER_NOT_FOUND);

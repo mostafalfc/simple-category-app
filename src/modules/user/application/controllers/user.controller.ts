@@ -1,10 +1,10 @@
-import { User } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreateUserDto } from '../dtos/requests/create-user.request.dto';
 import { LoginRequestDto } from '../dtos/requests/login.request.dto';
 import { UserService } from '../services/user.service';
 import { GlobalSuccessResponse } from '../../../../global/responses/global-response';
 import { UserSerializer } from '../serializers/user.serializer';
+import { User } from '../../domain/models/user.model';
 
 export class UserController {
   async createUserHandler(request: FastifyRequest<{ Body: CreateUserDto }>, reply: FastifyReply) {

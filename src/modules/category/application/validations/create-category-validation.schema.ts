@@ -1,5 +1,4 @@
 import { FastifySchema } from 'fastify';
-import { CategorySerializer } from '../serializers/category.serializer';
 
 export const CreateCategoryValidationSchema: FastifySchema = {
   tags: ['category'],

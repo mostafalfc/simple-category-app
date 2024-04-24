@@ -10,7 +10,6 @@ import { LoginValidationSchema } from './modules/user/application/validations/lo
 import { CreateCategoryValidationSchema } from './modules/category/application/validations/create-category-validation.schema';
 import { CreateUserValidationSchema } from './modules/user/application/validations/create-user-validation.schema';
 import { GlobalErrorResponse } from './global/responses/global-error';
-import { GlobalSuccessResponse } from './global/responses/global-response';
 
 export const app: FastifyInstance = fastify();
 
