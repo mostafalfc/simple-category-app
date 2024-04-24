@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    category-service:
+        container_name: category
+        build:
+            context: .
+            dockerfile: ./Dockerfile
+        environment:
+            - HOST=${HOST:-127.0.0.1}
+            - PORT=${PORT:-4000}
+            - DATABASE_URL=${DATABASE_URL:-mysql://root:mlfc5311@localhost:3306/categories}
+            - JWT_SECRET=${JWT_SECRET:-3X5cvWuXTfoHUGCNNX8P}
+        ports:
+            - 4000:4000
+        command: npm run dev
+
+        restart: always
+
